@@ -8,7 +8,7 @@ Analyse exploratoire des ventes de logements en Seine-et-Marne (77) en 2025, à 
 - **Le prix baisse avec la distance à Paris.** Prix médian de 3 518 €/m² à moins de 20 km contre 1 963 €/m² au-delà de 60 km. Corrélation d'environ -0,63 entre distance et prix médian sur les 93 communes de 30 ventes ou plus.
 - **La distance n'explique pas tout.** Fontainebleau et Bois-le-Roi (loin mais chères) et les communes de Marne-la-Vallée (Serris, Chessy, Montévrain...) s'écartent nettement du gradient. Les causes possibles (cadre résidentiel, constructions neuves, desserte) ne sont pas dans les données.
 - **Effet de composition.** La part de maisons passe de 44 % près de Paris à 80 % au-delà de 60 km : une partie de l'écart de prix entre maisons et appartements vient de la localisation, pas du type de bien.
-- **Un premier modèle bat nettement la baseline.** Une forêt aléatoire (surface, terrain, type de bien, distance à Paris, latitude et longitude) atteint une erreur absolue moyenne de 518 €/m² sur le jeu de test, contre 887 €/m² en prédisant la médiane (environ -42 %). Sur des communes jamais vues, la validation croisée donne environ 590 €/m². La position géographique et la surface sont les variables les plus utiles.
+- **Un modèle bat nettement la baseline.** Un modèle de boosting (surface, terrain, type de bien, distance à Paris, latitude et longitude) atteint une erreur absolue moyenne de 516 €/m² sur le jeu de test, contre 887 €/m² en prédisant la médiane (environ -42 %). L'erreur attendue dans le 77 est d'environ 510 à 575 €/m², selon que la commune est bien connue du modèle ou non. La position géographique et la surface sont les variables les plus utiles ; le réglage des paramètres, une cible en logarithme et l'encodage de la commune n'apportent rien de plus.
 - **Pas de saisonnalité des prix démontrée.** Le nombre de ventes varie presque du simple au double selon le mois (804 en avril, 1 587 en juillet), mais le prix médian reste stable (environ 3 000 à 3 160 €/m²), dans l'ordre de grandeur du bruit d'échantillonnage.
 
 ## Données
@@ -35,6 +35,7 @@ Chaque notebook lit le fichier produit par le précédent et en écrit un nouvea
 | `06_communes` | Prix par commune, distance à Paris, effet de composition |
 | `07_evolution_mensuelle` | Évolution mensuelle des ventes et des prix en 2025 |
 | `08_modele_reference` | Baseline, régression linéaire, forêt aléatoire, validation croisée et évaluation finale |
+| `09_amelioration_modele` | Boosting, réglage, cible en log, encodage de la commune, évaluation finale |
 
 ## Installation
 
@@ -52,4 +53,4 @@ jupyter lab
 - La date de mutation est la date de signature de l'acte, pas celle de la décision d'achat.
 - Pas d'information sur l'âge du bâtiment ni sur la desserte en transports.
 - Modèle : l'erreur est plus forte pour les maisons et dans la zone de Fontainebleau (50-60 km de Paris) ; la validation par commune laisse les communes voisines dans l'entraînement.
-- Suite prévue : encodage de la commune, variables externes (transports, zones commerciales), modèles de boosting.
+- Le modèle a atteint un plateau : pour aller plus loin, il faudrait de nouvelles variables (âge et état du bien, transports, zones commerciales) ou plusieurs années de données. Aucune validation ne mesure le décalage dans le temps (modèle entraîné sur 2025).
