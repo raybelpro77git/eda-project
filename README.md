@@ -36,6 +36,7 @@ Chaque notebook lit le fichier produit par le précédent et en écrit un nouvea
 | `07_evolution_mensuelle` | Évolution mensuelle des ventes et des prix en 2025 |
 | `08_modele_reference` | Baseline, régression linéaire, forêt aléatoire, validation croisée et évaluation finale |
 | `09_amelioration_modele` | Boosting, réglage, cible en log, encodage de la commune, évaluation finale |
+| `10_feature_engineering` | Nouvelles variables (direction depuis Paris, rapports, prix des ventes voisines) |
 
 ## Installation
 
@@ -53,4 +54,4 @@ jupyter lab
 - La date de mutation est la date de signature de l'acte, pas celle de la décision d'achat.
 - Pas d'information sur l'âge du bâtiment ni sur la desserte en transports.
 - Modèle : l'erreur est plus forte pour les maisons et dans la zone de Fontainebleau (50-60 km de Paris) ; la validation par commune laisse les communes voisines dans l'entraînement.
-- Le modèle a atteint un plateau : pour aller plus loin, il faudrait de nouvelles variables (âge et état du bien, transports, zones commerciales) ou plusieurs années de données. Aucune validation ne mesure le décalage dans le temps (modèle entraîné sur 2025).
+- Le modèle a atteint un plateau : réglages, cible en logarithme, encodage de la commune et nouvelles variables construites (direction, rapports, prix des voisins) n'apportent rien. Pour aller plus loin, il faudrait des données nouvelles (âge et état du bien, transports, zones commerciales) ou plusieurs années. Aucune validation ne mesure le décalage dans le temps (modèle entraîné sur 2025).
